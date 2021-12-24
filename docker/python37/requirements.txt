@@ -1,0 +1,12 @@
+
+Flask
+Flask-Cors
+Flask-Injector
+Flask-JWT-Extended
+Flask-RESTful
+flask_httpauth
+pymongo
+marshmallow
+flask-mongoengine
+jsonschema
+
