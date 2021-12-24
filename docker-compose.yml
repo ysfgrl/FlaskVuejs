@@ -1,0 +1,53 @@
+version: '2.0'
+services:
+  mongodb:
+    image: mongo
+    tty: true
+    container_name: mongodb
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_ROOT_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_ROOT_PASSWORD}
+      - MONGO_INITDB_DATABASE=project
+    volumes:
+      - ./docker/mongo:/data/db
+    networks:
+      - net
+    expose:
+      - 27017
+    restart: always
+
+  python37:
+    build: docker/python37
+    tty: true
+    command: python app.py
+    volumes:
+      - ./api:/flaskapi
+    ports:
+      - 9005:9005
+    links:
+      - mongodb
+    depends_on:
+      - mongodb
+    networks:
+      net:
+        ipv4_address: 10.10.1.4
+  nodejs16:
+    build: docker/nodejs16
+    container_name: nodejs16
+    tty: true
+    restart: always
+    volumes:
+      - ./web:/webapp
+    command: bash -c "npm install && npm run serve"
+    networks:
+      net:
+        ipv4_address: 10.10.1.5
+    ports:
+      - '3000:3000'
+
+networks:
+    net:
+      ipam:
+        driver: default
+        config:
+          - subnet: 10.10.0.0/16
