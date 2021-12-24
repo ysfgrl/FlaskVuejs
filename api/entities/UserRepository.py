@@ -11,7 +11,6 @@ class UserRepository:
             user = User.objects.get(username=username)
             return json.loads(user.to_json())
         except Exception as e:
-            logging.error(traceback.format_exc())
             return None
 
     def add_user(self, payload):
@@ -25,5 +24,4 @@ class UserRepository:
             person.save()
             return True
         except Exception as e:
-            logging.error(traceback.format_exc())
             return None

@@ -11,7 +11,6 @@ class PersonRepository:
             person = Person.objects.get(tckn=tckn)
             return json.loads(person.to_json())
         except Exception as e:
-            logging.error(traceback.format_exc())
             return None
 
 
@@ -20,7 +19,6 @@ class PersonRepository:
             persons = Person.objects()
             return json.loads(persons.to_json())
         except Exception as e:
-            logging.error(traceback.format_exc())
             return None
 
 
@@ -36,7 +34,6 @@ class PersonRepository:
             person.save()
             return True
         except Exception as e:
-            logging.error(traceback.format_exc())
             return None
 
 
@@ -48,7 +45,6 @@ class PersonRepository:
             person.save()
             return True
         except Exception as e:
-            logging.error(traceback.format_exc())
             return None
 
     def delete_person(self, tckn):
@@ -57,7 +53,6 @@ class PersonRepository:
             person.delete()
             return True
         except Exception as e:
-            logging.error(traceback.format_exc())
             return None
 
 
